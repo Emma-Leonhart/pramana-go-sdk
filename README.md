@@ -4,24 +4,25 @@ Go SDK for the [Pramana](https://pramana-data.ca) knowledge graph. Provides exac
 
 ## Status
 
-**Pre-implementation** - Project structure and implementation plan documented. See [IMPLEMENTATION.md](IMPLEMENTATION.md) for the full design.
+**Learning project** - This is the author's first Go project, being built as a way to learn the language through vibecoding. If you have experience with Go and want to help improve this SDK, contributions and feedback are very welcome!
 
-## Key Features (Planned)
+The core Gaussian rational and integer types are implemented. See [IMPLEMENTATION.md](IMPLEMENTATION.md) for the full design.
 
-- **GaussianRational** (standard short name: **Gauss**; Gaussian integers: **Gint**) - Exact complex rational arithmetic (`a/b + (c/d)i`) with stdlib `math/big.Int`
+## Key Features
+
+- **Gauss** - Exact Gaussian rational arithmetic (`a/b + (c/d)i`) with stdlib `math/big.Int`
+- **Gint** - Gaussian integer arithmetic with GCD, XGCD, primality testing, and modified division
+- **Number Theory** - Primality testing with 6k+/-1 trial division
 - **Deterministic Pramana IDs** - UUID v5 generation matching the canonical Pramana web app
 - **Minimal dependencies** - Only `google/uuid`; everything else is stdlib
-- **Implicit interfaces** - Clean expression of Pramana's type hierarchy
-- **Struct tag mapping** - `pramana:"property_name"` tags for ORM-style mapping
-- **Multiple data sources** - `.pra` files, SPARQL, REST API, SQLite
 
-## Installation (Future)
+## Installation
 
 ```bash
 go get github.com/Emma-Leonhart/pramana-go-sdk
 ```
 
-## Quick Example (Planned API)
+## Quick Example
 
 ```go
 package main
@@ -32,11 +33,23 @@ import (
 )
 
 func main() {
-    half, _ := pramana.NewFromInt64(1, 2, 0, 1)   // 1/2
-    third, _ := pramana.NewFromInt64(1, 3, 0, 1)  // 1/3
-    result := half.Add(third)                       // 5/6
+    // Create Gaussian rationals
+    half := pramana.NewGauss(1, 2, 0, 1)    // 1/2
+    third := pramana.NewGauss(1, 3, 0, 1)   // 1/3
+    sum := half.Add(third)                    // 5/6
+    fmt.Println(sum)                          // "5/6"
+    fmt.Println(sum.PramanaID())              // deterministic UUID v5
 
-    fmt.Println(result.PramanaID())  // deterministic UUID v5
+    // Create Gaussian integers
+    z := pramana.NewGint(3, 4)               // 3 + 4i
+    fmt.Println(z.Norm())                     // 25
+    fmt.Println(pramana.GintIsGaussianPrime(z)) // false
+
+    // GCD in Z[i]
+    a := pramana.NewGint(3, 1)
+    b := pramana.NewGint(1, 2)
+    g := pramana.GintGCD(a, b)
+    fmt.Println(g)
 }
 ```
 
