@@ -184,7 +184,8 @@ func TestGintXGCD(t *testing.T) {
 }
 
 func TestGintIsRelativelyPrime(t *testing.T) {
-	a := NewGint(3, 1)
+	// 3+2i (norm 13) and 1+i (norm 2) share no common Gaussian prime factor
+	a := NewGint(3, 2)
 	b := NewGint(1, 1)
 	if !GintIsRelativelyPrime(a, b) {
 		t.Errorf("%s and %s should be relatively prime", a, b)
