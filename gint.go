@@ -293,31 +293,13 @@ func GintModifiedDivmod(a, b *Gint) (*Gint, *Gint) {
 	return q, r
 }
 
-// roundDiv computes round(a/b) using rounding-half-away-from-zero.
+// roundDiv computes round(a/b) = floor((2a + b) / (2b)).
+// b must be positive (always true in our usage since it's a norm).
 func roundDiv(a, b *big.Int) *big.Int {
-	// Use the formula: round(a/b) = floor((2*a + b) / (2*b))
-	// This handles both positive and negative correctly
 	two := big.NewInt(2)
-	twoA := new(big.Int).Mul(two, a)
-	twoB := new(big.Int).Mul(two, b)
-
-	// Adjust for sign: if b < 0, we need to flip
-	num := new(big.Int).Add(twoA, b)
-	if b.Sign() < 0 {
-		num = new(big.Int).Sub(twoA, b)
-		twoB.Neg(twoB)
-	}
-
-	// Euclidean-style division
-	result := new(big.Int)
-	if num.Sign() >= 0 {
-		result.Div(num, twoB)
-	} else {
-		// For negative numerators, adjust to get rounding behavior
-		num.Sub(num, new(big.Int).Sub(twoB, big.NewInt(1)))
-		result.Div(num, twoB)
-	}
-	return result
+	num := new(big.Int).Add(new(big.Int).Mul(two, a), b)
+	den := new(big.Int).Mul(two, b)
+	return new(big.Int).Div(num, den)
 }
 
 // GintGCD returns the greatest common divisor of a and b using the Euclidean algorithm.
