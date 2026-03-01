@@ -6,7 +6,6 @@ import "math/big"
 // Uses trial division with the 6k±1 optimization.
 func IsPrime(n *big.Int) bool {
 	zero := big.NewInt(0)
-	one := big.NewInt(1)
 	two := big.NewInt(2)
 	three := big.NewInt(3)
 
