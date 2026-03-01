@@ -8,7 +8,7 @@ Go SDK for the [Pramana](https://pramana-data.ca) knowledge graph. Provides exac
 
 ## Key Features (Planned)
 
-- **GaussianRational** - Exact complex rational arithmetic (`a/b + (c/d)i`) with stdlib `math/big.Int`
+- **GaussianRational** (standard short name: **Gauss**; Gaussian integers: **Gint**) - Exact complex rational arithmetic (`a/b + (c/d)i`) with stdlib `math/big.Int`
 - **Deterministic Pramana IDs** - UUID v5 generation matching the canonical Pramana web app
 - **Minimal dependencies** - Only `google/uuid`; everything else is stdlib
 - **Implicit interfaces** - Clean expression of Pramana's type hierarchy
@@ -44,6 +44,10 @@ func main() {
 
 - [General SDK Specification](08_SDK_LIBRARY_SPECIFICATION.md) - Cross-language design spec
 - [Go Implementation Guide](IMPLEMENTATION.md) - Go-specific implementation details
+
+## Acknowledgments
+
+The Gauss and Gint implementations across all Pramana SDKs were heavily inspired by [gaussian_integers](https://github.com/alreich/gaussian_integers) by **Alfred J. Reich, Ph.D.**, which provides exact arithmetic for Gaussian integers and Gaussian rationals in Python.
 
 ## Pramana SDK Family
 
