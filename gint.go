@@ -501,7 +501,7 @@ func (g *Gint) PramanaLabel() string {
 
 // PramanaURL returns the entity URL with the UUID.
 func (g *Gint) PramanaURL() string {
-	return "https://pramana-data.ca/entity/" + g.PramanaID().String()
+	return "https://pramana.dev/entity/" + g.PramanaID().String()
 }
 
 // --- Parsing ---

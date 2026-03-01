@@ -719,7 +719,7 @@ func (g *Gauss) PramanaLabel() string {
 
 // PramanaURL returns the entity URL with the UUID.
 func (g *Gauss) PramanaURL() string {
-	return "https://pramana-data.ca/entity/" + g.PramanaID().String()
+	return "https://pramana.dev/entity/" + g.PramanaID().String()
 }
 
 // PramanaHashURL returns the entity URL with the UUID (same as PramanaURL).
