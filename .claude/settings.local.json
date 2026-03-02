@@ -2,7 +2,11 @@
   "permissions": {
     "allow": [
       "Bash(go mod:*)",
-      "Bash(cmd.exe:*)"
+      "Bash(cmd.exe:*)",
+      "Bash(go test:*)",
+      "Bash(where go:*)",
+      "Bash(gh run:*)",
+      "Bash(gh api:*)"
     ]
   }
 }
